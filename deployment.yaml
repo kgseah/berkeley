@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: berkeley
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: berkeley
+  template:
+    metadata:
+      labels:
+        app: berkeley
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: berkeley
+        image: localhost:5000/berkeley
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8000
