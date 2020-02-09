@@ -7,7 +7,7 @@ redis = Redis(host='redis', port=6379)
 @app.route('/')
 def hello():
     redis.incr('hits')
-    return 'This the %s vistor(s)' % redis.get('hits').decode("utf-8")
+    return 'This the %s visitor(s)' % redis.get('hits').decode("utf-8")
 
 
 if __name__ == "__main__":
