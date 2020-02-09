@@ -6,6 +6,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 8000
+    - protocol: TCP
+      port: 80
+      targetPort: 5000  
   selector:
     app: berkeley

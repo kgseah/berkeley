@@ -1,13 +1,14 @@
 from flask import Flask
-
-PORT = 8000
+from redis import Redis
 
 app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
 
-@app.route("/")
-def root():
-    return "This is the %d visitor" % 11
+@app.route('/')
+def hello():
+    redis.incr('hits')
+    return 'This the %s vistor(s)' % redis.get('hits').decode("utf-8")
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0", debug=True)
